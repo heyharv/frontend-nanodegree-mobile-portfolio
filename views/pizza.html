@@ -142,6 +142,28 @@
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
   <script type="text/javascript" src="js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+      var flag = true;
+      $('.randomPizzaContainer').onchange(function() {
+        $(this).stop().animate({width: (flag ? "500px" : "250px")}, 'fast');
+            switch(this.size) {
+              case "1":
+                document.querySelector("#pizzaSize").innerHTML = "Small";
+                return;
+              case "2":
+                document.querySelector("#pizzaSize").innerHTML = "Medium";
+                return;
+              case "3":
+                document.querySelector("#pizzaSize").innerHTML = "Large";
+                return;
+              default:
+                console.log("bug in changeSliderLabel");
+            };
+        flag = !flag;
+      });
+    });
+  </script>
 </body>
 
 </html>

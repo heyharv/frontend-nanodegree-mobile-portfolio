@@ -403,6 +403,7 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
+  /*
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
@@ -417,7 +418,7 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in changeSliderLabel");
     }
-  }
+  }*/
 
   changeSliderLabel(size);
 
@@ -464,7 +465,7 @@ var resizePizzas = function(size) {
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
   console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
-};
+}; //end of resizePizzas();
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
