@@ -102,7 +102,8 @@
           </div>
           <div id="pizzaSize" class="col-md-6">Medium</div>
           <div class="col-md-12">
-            <input id="sizeSlider" type="range" min="1" max="3" value="2" step="1" onchange="resizePizzas(this.value)"></input>
+            <!-- <input id="sizeSlider" type="range" min="1" max="3" value="2" step="1" onchange="resizePizzas(this.value)"></input> -->
+            <input id="sizeSlider" type="range" min="1" max="3" value="2" step="1" onchange="$(this).resizePizzas(this.value)"></input>
           </div>
         </div>
         <div id="randomPizzas" class="row">
@@ -143,26 +144,65 @@
   </div>
   <script type="text/javascript" src="js/main.js"></script>
   <script>
-    $(document).ready(function(){
-      var flag = true;
-      $('.randomPizzaContainer').onchange(function() {
-        $(this).stop().animate({width: (flag ? "500px" : "250px")}, 'fast');
-            switch(this.size) {
-              case "1":
-                document.querySelector("#pizzaSize").innerHTML = "Small";
-                return;
-              case "2":
-                document.querySelector("#pizzaSize").innerHTML = "Medium";
-                return;
-              case "3":
-                document.querySelector("#pizzaSize").innerHTML = "Large";
-                return;
-              default:
-                console.log("bug in changeSliderLabel");
-            };
-        flag = !flag;
-      });
-    });
+  (function($) {
+    $.fn.resizePizzas = function(size) {
+      // Changes the value for the size of the pizza above the slider
+      function changeSliderLabel(size) {
+        switch(size) {
+          case "1":
+            document.querySelector("#pizzaSize").innerHTML = "Small";
+            return;
+          case "2":
+            document.querySelector("#pizzaSize").innerHTML = "Medium";
+            return;
+          case "3":
+            document.querySelector("#pizzaSize").innerHTML = "Large";
+            return;
+          default:
+            console.log("bug in changeSliderLabel");
+        }
+      }
+
+      changeSliderLabel(size);
+
+      function determineDx (elem, size) {
+        var oldWidth = elem.offsetWidth;
+        var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+        var oldSize = oldWidth / windowWidth;
+            // Changes the slider value to a percent width
+        function sizeSwitcher (size) {
+          switch(size) {
+            case "1":
+              return 0.25;
+            case "2":
+              return 0.3333;
+            case "3":
+              return 0.5;
+            default:
+              console.log("bug in sizeSwitcher");
+          }
+        }
+
+        var newSize = sizeSwitcher(size);
+        var dx = (newSize - oldSize) * windowWidth;
+
+        return dx;
+      }
+
+      // Iterates through pizza elements on the page and changes their widths
+      function changePizzaSizes(size) {
+        var t = document.querySelectorAll(".randomPizzaContainer");
+        for (var i = 0; i < t.length; i++) {
+          var dx = determineDx(t[i], size);
+          var newwidth = (t[i].offsetWidth + dx) + 'px';
+          t[i].style.width = newwidth;
+        }
+      }
+
+      changePizzaSizes(size);
+
+    };
+  })(jQuery);
   </script>
 </body>
 

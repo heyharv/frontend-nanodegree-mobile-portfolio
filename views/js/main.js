@@ -397,13 +397,13 @@ var pizzaElementGenerator = function(i) {
 
   return pizzaContainer;
 };
-
+/*
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
-  /*
+
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
@@ -418,7 +418,7 @@ var resizePizzas = function(size) {
       default:
         console.log("bug in changeSliderLabel");
     }
-  }*/
+  }
 
   changeSliderLabel(size);
 
@@ -466,7 +466,7 @@ var resizePizzas = function(size) {
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
   console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
 }; //end of resizePizzas();
-
+*/
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
